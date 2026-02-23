@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/game_board.gd" id="1_board"]
+[ext_resource type="PackedScene" path="res://scenes/Tile.tscn" id="2_tile"]
+
+[node name="GameBoard" type="Node2D"]
+groups = ["game_board"]
+script = ExtResource("1_board")
+tile_scene = ExtResource("2_tile")
+
+[node name="TileContainer" type="Node2D" parent="."]
