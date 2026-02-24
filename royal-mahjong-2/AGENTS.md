@@ -47,21 +47,21 @@ Refer to these for details (load only when needed):
 - `agent_docs/testing.md`: Verification strategy and commands
 
 ## Current State (Update This!)
-**Last Updated:** 2026-02-21
-**Working On:** Initializing project setup and core features
-**Recently Completed:** None
+**Last Updated:** 2026-02-23
+**Working On:** Phase 2 — Core Features
+**Recently Completed:** Phase 1 — Foundation (all tasks done, game is playable)
 **Blocked By:** None
 
 ## Roadmap
-### Phase 1: Foundation (Week 1)
-- [ ] Initialize Godot 4 project with Mobile renderer.
-- [ ] Implement robust valid pair checking and grid layer logic.
-- [ ] Build 4-slot bar UI and check logic.
-- [ ] Parse JSON level data.
+### Phase 1: Foundation (Week 1) ✅ COMPLETE
+- [x] Initialize Godot 4 project with Mobile renderer.
+- [x] Implement robust valid pair checking and grid layer logic.
+- [x] Build 4-slot bar UI and check logic.
+- [x] Parse JSON level data.
 
 ### Phase 2: Core Features (Week 2)
 - [ ] Implement Simple JSON State Machine for meta-game.
-- [ ] Boss health functionality (Wait for tile hits).
+- [x] Boss health functionality (Wait for tile hits).
 - [ ] Admob/AppLovin integration (Rewarded Ads for Shuffles/Undos).
 - [ ] Final UI Polish with Midjourney assets.
 

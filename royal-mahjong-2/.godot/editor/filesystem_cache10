@@ -1,9 +1,8 @@
 63f7b34db8d8cdea90c76aacccf841ec
-<<<<<<< HEAD
-::res://::1771820949
+::res://::1771903536
 AGENTS.md::TextFile::-1::1771665087::0::1::::<><><>0<>0<><>::
 CLAUDE.md::TextFile::-1::1771665104::0::1::::<><><>0<>0<><>::
-icon.svg::CompressedTexture2D::7908574098071660022::1771820949::1771821010::1::::<><><>0<>0<>0bb9b165bffd1342a9709cb517e4c1ec<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+icon.svg::CompressedTexture2D::7908574098071660022::1771820949::1771903537::1::::<><><>0<>0<>0bb9b165bffd1342a9709cb517e4c1ec<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 ::res://agent_docs/::1771665102
 product_requirements.md::TextFile::-1::1771665098::0::1::::<><><>0<>0<><>::
 project_brief.md::TextFile::-1::1771665095::0::1::::<><><>0<>0<><>::
@@ -30,7 +29,3 @@ game_manager.gd::GDScript::3878021031242223586::1771819907::0::1::::<>Node<><>0<
 main.gd::GDScript::7527829554371104740::1771820995::0::1::::<>Node2D<><>0<>0<><>::
 slot_bar.gd::GDScript::2372305571166178852::1771820978::0::1::::<>Control<><>0<>0<><>::
 tile.gd::GDScript::5531275383680172655::1771820097::0::1::::<>Area2D<><>0<>0<><>::
-=======
-::res://::1771216050
-icon.svg::CompressedTexture2D::4172936653582853227::1771216040::1771216051::1::::<><><>0<>0<>61bf14dc42bcc0130b007257e41bb9c8<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
->>>>>>> 569b0bfa8293450c2a99d01fa9817c1788db5a1b

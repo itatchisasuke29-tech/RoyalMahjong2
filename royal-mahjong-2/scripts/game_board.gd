@@ -14,6 +14,9 @@ extends Node2D
 # Core grid: Vector3i(x, y, z) → Tile node
 var grid: Dictionary = {}
 
+# tile_id (int) → name (String), loaded from level JSON
+var _tile_types: Dictionary = {}
+
 # ---------------------------------------------------------------------------
 # Level Loading
 # ---------------------------------------------------------------------------
@@ -37,13 +40,18 @@ func load_level(json_path: String) -> void:
 
 	var data: Dictionary = json.data
 
-	GameManager.set_boss_hp(data.get("boss_hp", 10))
+	# Build int-keyed tile_types map
+	_tile_types.clear()
+	var raw_types: Dictionary = data.get("tile_types", {})
+	for key in raw_types:
+		_tile_types[int(key)] = raw_types[key]
+
+	GameManager.set_boss(data.get("boss_name", "Boss"), data.get("boss_hp", 10))
 
 	for tile_data in data["tiles"]:
 		_spawn_tile(tile_data["id"], tile_data["x"], tile_data["y"], tile_data["z"])
 
 	refresh_tile_states()
-	print("GameBoard: loaded %d tiles." % grid.size())
 
 func _spawn_tile(id: int, gx: int, gy: int, gz: int) -> void:
 	if not tile_scene:
@@ -59,7 +67,8 @@ func _spawn_tile(id: int, gx: int, gy: int, gz: int) -> void:
 		gy * tile_spacing.y + gz * z_visual_offset.y
 	)
 
-	tile.setup(id, gx, gy, gz)
+	var tile_name: String = _tile_types.get(id, "?")
+	tile.setup(id, tile_name, gx, gy, gz)
 	grid[Vector3i(gx, gy, gz)] = tile
 
 # ---------------------------------------------------------------------------
@@ -82,6 +91,31 @@ func refresh_tile_states() -> void:
 		grid[key].set_free(is_tile_free(grid[key]))
 
 # ---------------------------------------------------------------------------
+# Input — manual hit-test (replaces Area2D input_event, no special settings needed)
+# ---------------------------------------------------------------------------
+func _input(event: InputEvent) -> void:
+	if not (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
+		return
+
+	var mouse_pos: Vector2 = tile_container.get_local_mouse_position()
+	var best_tile: Node = null
+	var best_z: int = -1
+
+	for key: Vector3i in grid:
+		var tile: Node = grid[key]
+		if not tile.is_free:
+			continue
+		var diff: Vector2 = mouse_pos - tile.position
+		if abs(diff.x) <= 60.0 and abs(diff.y) <= 75.0:
+			if tile.grid_z > best_z:
+				best_tile = tile
+				best_z = tile.grid_z
+
+	if best_tile:
+		GameManager.tile_clicked.emit(best_tile)
+		get_viewport().set_input_as_handled()
+
+# ---------------------------------------------------------------------------
 # Tile Removal (two-step so SlotBar can animate before freeing)
 # ---------------------------------------------------------------------------
 
@@ -90,9 +124,7 @@ func take_tile(tile: Node) -> void:
 	grid.erase(Vector3i(tile.grid_x, tile.grid_y, tile.grid_z))
 
 	if grid.is_empty():
-		# All board tiles are now in the bar — emit after bar clears them
 		GameManager.board_cleared.emit()
-		print("GameBoard: board empty — level complete!")
 		return
 
 	refresh_tile_states()
@@ -108,6 +140,15 @@ func discard_tile(tile: Node) -> void:
 func remove_tile(tile: Node) -> void:
 	take_tile(tile)
 	tile.queue_free()
+
+# Restore a tile that was taken (used by Undo powerup)
+func restore_tile(tile: Node) -> void:
+	grid[Vector3i(tile.grid_x, tile.grid_y, tile.grid_z)] = tile
+	refresh_tile_states()
+
+# Player-triggered shuffle (same logic as auto-shuffle)
+func shuffle_tiles() -> void:
+	_auto_shuffle()
 
 # ---------------------------------------------------------------------------
 # Valid-move check (scans all free tiles for any matching pair)
@@ -128,13 +169,13 @@ func has_valid_move() -> bool:
 # Auto Shuffle — "Emperor's Blessing" (reassigns IDs when no valid move exists)
 # ---------------------------------------------------------------------------
 func _auto_shuffle() -> void:
-	print("GameBoard: no valid moves — Emperor's Blessing! Shuffling IDs...")
 
 	var tiles: Array = grid.values()
 	var ids:   Array = tiles.map(func(t): return t.tile_id)
 	ids.shuffle()
 
 	for i in range(tiles.size()):
-		tiles[i].setup(ids[i], tiles[i].grid_x, tiles[i].grid_y, tiles[i].grid_z)
+		var new_name: String = _tile_types.get(ids[i], "?")
+		tiles[i].setup(ids[i], new_name, tiles[i].grid_x, tiles[i].grid_y, tiles[i].grid_z)
 
 	refresh_tile_states()

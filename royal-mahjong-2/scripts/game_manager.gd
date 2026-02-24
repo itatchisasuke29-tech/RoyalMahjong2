@@ -2,41 +2,42 @@ extends Node
 
 # ---------------------------------------------------------------------------
 # GameManager — Global Autoload (Signal Bus + Game State)
-# Registered in project.godot as "GameManager"
-# Access anywhere with: GameManager.signal_name / GameManager.variable
 # ---------------------------------------------------------------------------
 
 # --- Signals ---
-signal tile_clicked(tile: Node)       # emitted by Tile when tapped
-signal match_made(tile1: Node, tile2: Node)  # emitted by SlotBar on a successful pair
-signal game_over()                    # emitted by SlotBar when bar is full, no match
-signal board_cleared()                # emitted by GameBoard when all tiles removed
+signal tile_clicked(tile: Node)
+signal match_made(tile1: Node, tile2: Node)
+signal game_over()
+signal board_cleared()
+signal boss_damaged(new_hp: int, max_hp: int)   # fires AFTER HP is reduced
+signal boss_set(boss_name: String, hp: int, max_hp: int)  # fires when a new boss is loaded
 
 # --- Game State ---
 var current_level: int = 1
-var score: int = 0
-var boss_hp: int = 0
-var boss_hp_max: int = 0
+var score:         int = 0
+var boss_hp:       int = 0
+var boss_hp_max:   int = 0
+var boss_name:     String = ""
+var powerups:      Dictionary = {"undo": 3, "shuffle": 1}
 
-# --- Called automatically by Godot (Autoload is always ready) ---
 func _ready() -> void:
-	print("GameManager ready.")
+	get_viewport().physics_object_picking = true
 
 # ---------------------------------------------------------------------------
-# Helpers called by other nodes
+# Helpers
 # ---------------------------------------------------------------------------
-
 func add_score(points: int) -> void:
 	score += points
 
-func set_boss_hp(hp: int) -> void:
-	boss_hp = hp
-	boss_hp_max = hp
+func set_boss(name: String, hp: int) -> void:
+	boss_name    = name
+	boss_hp      = hp
+	boss_hp_max  = hp
+	boss_set.emit(boss_name, boss_hp, boss_hp_max)
 
 func damage_boss(amount: int) -> void:
 	boss_hp = max(0, boss_hp - amount)
-	if boss_hp == 0:
-		emit_signal("board_cleared")  # re-use cleared signal for boss defeat for now
+	boss_damaged.emit(boss_hp, boss_hp_max)
 
 func reset_for_level(level_id: int) -> void:
 	current_level = level_id
