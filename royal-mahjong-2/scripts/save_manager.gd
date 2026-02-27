@@ -29,9 +29,10 @@ func _on_board_cleared() -> void:
 # ---------------------------------------------------------------------------
 func save_game() -> void:
 	var data := {
-		"current_level": GameManager.current_level,
-		"score":         GameManager.score,
-		"powerups":      GameManager.powerups.duplicate()
+		"current_level":  GameManager.current_level,
+		"score":          GameManager.score,
+		"powerups":       GameManager.powerups.duplicate(),
+		"tutorial_seen":  GameManager.tutorial_seen
 	}
 
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -70,6 +71,10 @@ func load_game() -> void:
 	var saved_pu: Dictionary           = data.get("powerups", {})
 	GameManager.powerups["undo"]       = saved_pu.get("undo",    3)
 	GameManager.powerups["shuffle"]    = saved_pu.get("shuffle", 1)
+	GameManager.tutorial_seen         = data.get("tutorial_seen", false)
+
+func has_save() -> bool:
+	return FileAccess.file_exists(SAVE_PATH)
 
 # ---------------------------------------------------------------------------
 # Reset (call on new game / game over)

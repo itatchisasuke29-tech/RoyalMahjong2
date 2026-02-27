@@ -1,0 +1,22 @@
+{
+  "1": {
+    "intro": "The earth shakes beneath us! Help me restore calm, wise one.",
+    "victory": "The quake is stilled. The kingdom breathes again... for now."
+  },
+  "2": {
+    "intro": "The floods rise and the rivers rage. We must be bold!",
+    "victory": "The waters recede. Your wisdom has lit our path forward."
+  },
+  "3": {
+    "intro": "A great drought grips the land. Stay focused — we shall endure.",
+    "victory": "Rain falls once more. The Dragon's Pass is open again."
+  },
+  "4": {
+    "intro": "The Shadow Army marches on our walls. Hold firm — we will not fall!",
+    "victory": "The wall stands! The shadows retreat in defeat."
+  },
+  "5": {
+    "intro": "The Dark Emperor himself rises. This ends today — for the realm!",
+    "victory": "Victory! Peace returns to the realm. You have saved us all."
+  }
+}

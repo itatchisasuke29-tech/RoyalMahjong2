@@ -1,8 +1,5 @@
-res://scripts/game_manager.gd
-res://scenes/Tile.tscn
 res://scripts/main.gd
 res://scripts/game_board.gd
-res://scripts/slot_bar.gd
-res://scripts/boss_bar.gd
+res://scripts/game_manager.gd
+res://scenes/Main.tscn
 res://scripts/save_manager.gd
-res://scripts/tile.gd

@@ -13,12 +13,14 @@ signal boss_damaged(new_hp: int, max_hp: int)   # fires AFTER HP is reduced
 signal boss_set(boss_name: String, hp: int, max_hp: int)  # fires when a new boss is loaded
 
 # --- Game State ---
-var current_level: int = 1
-var score:         int = 0
-var boss_hp:       int = 0
-var boss_hp_max:   int = 0
-var boss_name:     String = ""
-var powerups:      Dictionary = {"undo": 3, "shuffle": 1}
+var current_level:   int  = 1
+var score:           int  = 0
+var boss_hp:         int  = 0
+var boss_hp_max:     int  = 0
+var boss_name:       String = ""
+var level_name:      String = ""
+var tutorial_seen:   bool = false
+var powerups:        Dictionary = {"undo": 3, "shuffle": 1}
 
 func _ready() -> void:
 	get_viewport().physics_object_picking = true
@@ -29,8 +31,8 @@ func _ready() -> void:
 func add_score(points: int) -> void:
 	score += points
 
-func set_boss(name: String, hp: int) -> void:
-	boss_name    = name
+func set_boss(boss_name_val: String, hp: int) -> void:
+	boss_name    = boss_name_val
 	boss_hp      = hp
 	boss_hp_max  = hp
 	boss_set.emit(boss_name, boss_hp, boss_hp_max)

@@ -1,33 +1,39 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://dr6mss5ksnavl"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://dfisiungtq4jo" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://scenes/GameBoard.tscn" id="2_board"]
 [ext_resource type="PackedScene" path="res://scenes/SlotBar.tscn" id="3_slotbar"]
 [ext_resource type="PackedScene" path="res://scenes/BossBar.tscn" id="4_bossbar"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=2024481224]
 script = ExtResource("1_main")
 
-[node name="GameBoard" parent="." instance=ExtResource("2_board")]
-position = Vector2(75.0, 240.0)
+[node name="GameBoard" parent="." unique_id=1848517080 instance=ExtResource("2_board")]
+position = Vector2(75, 240)
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1838536486]
 
-[node name="UIRoot" type="Control" parent="UILayer"]
+[node name="UIRoot" type="Control" parent="UILayer" unique_id=1947570367]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="BossBar" parent="UILayer/UIRoot" instance=ExtResource("4_bossbar")]
+[node name="BossBar" parent="UILayer/UIRoot" unique_id=1919018416 instance=ExtResource("4_bossbar")]
+anchors_preset = 0
 
-[node name="SlotBar" parent="UILayer/UIRoot" instance=ExtResource("3_slotbar")]
+[node name="SlotBar" parent="UILayer/UIRoot" unique_id=1386701983 instance=ExtResource("3_slotbar")]
+anchors_preset = 0
 
-[node name="HUD" type="Control" parent="UILayer/UIRoot"]
+[node name="HUD" type="Control" parent="UILayer/UIRoot" unique_id=988593174]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="ScoreLabel" type="Label" parent="UILayer/UIRoot/HUD"]
+[node name="ScoreLabel" type="Label" parent="UILayer/UIRoot/HUD" unique_id=957920031]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 96.0
 offset_right = 250.0
@@ -35,34 +41,46 @@ offset_bottom = 124.0
 theme_override_font_sizes/font_size = 20
 text = "Score: 0"
 
-[node name="StatusLabel" type="Label" parent="UILayer/UIRoot/HUD"]
-offset_left = 0.0
+[node name="LevelLabel" type="Label" parent="UILayer/UIRoot/HUD" unique_id=571418190]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 96.0
+offset_right = 530.0
+offset_bottom = 124.0
+theme_override_font_sizes/font_size = 20
+text = "Level 1 / 2"
+horizontal_alignment = 2
+
+[node name="StatusLabel" type="Label" parent="UILayer/UIRoot/HUD" unique_id=1908564164]
+layout_mode = 0
 offset_top = 126.0
 offset_right = 540.0
 offset_bottom = 154.0
-horizontal_alignment = 1
 theme_override_font_sizes/font_size = 16
-text = ""
+horizontal_alignment = 1
 
-[node name="NextLevelButton" type="Button" parent="UILayer/UIRoot/HUD"]
+[node name="NextLevelButton" type="Button" parent="UILayer/UIRoot/HUD" unique_id=1418928802]
+visible = false
+layout_mode = 0
 offset_left = 145.0
 offset_top = 200.0
 offset_right = 395.0
 offset_bottom = 235.0
-visible = false
 theme_override_font_sizes/font_size = 18
 text = "Next Level  ->"
 
-[node name="RestartButton" type="Button" parent="UILayer/UIRoot/HUD"]
+[node name="RestartButton" type="Button" parent="UILayer/UIRoot/HUD" unique_id=1773583171]
+visible = false
+layout_mode = 0
 offset_left = 145.0
 offset_top = 200.0
 offset_right = 395.0
 offset_bottom = 235.0
-visible = false
 theme_override_font_sizes/font_size = 18
 text = "Play Again"
 
-[node name="UndoButton" type="Button" parent="UILayer/UIRoot/HUD"]
+[node name="UndoButton" type="Button" parent="UILayer/UIRoot/HUD" unique_id=1922633911]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 158.0
 offset_right = 255.0
@@ -70,7 +88,8 @@ offset_bottom = 190.0
 theme_override_font_sizes/font_size = 16
 text = "Undo (3)"
 
-[node name="ShuffleButton" type="Button" parent="UILayer/UIRoot/HUD"]
+[node name="ShuffleButton" type="Button" parent="UILayer/UIRoot/HUD" unique_id=1088719440]
+layout_mode = 0
 offset_left = 285.0
 offset_top = 158.0
 offset_right = 530.0

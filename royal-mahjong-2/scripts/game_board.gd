@@ -46,6 +46,7 @@ func load_level(json_path: String) -> void:
 	for key in raw_types:
 		_tile_types[int(key)] = raw_types[key]
 
+	GameManager.level_name = data.get("name", "")
 	GameManager.set_boss(data.get("boss_name", "Boss"), data.get("boss_hp", 10))
 
 	for tile_data in data["tiles"]:
@@ -120,7 +121,8 @@ func _input(event: InputEvent) -> void:
 # ---------------------------------------------------------------------------
 
 # Step 1: remove from grid + refresh (keeps the node alive for bar animation)
-func take_tile(tile: Node) -> void:
+# current_slot_ids = IDs already in the slot bar BEFORE this tile is added
+func take_tile(tile: Node, current_slot_ids: Array = []) -> void:
 	grid.erase(Vector3i(tile.grid_x, tile.grid_y, tile.grid_z))
 
 	if grid.is_empty():
@@ -129,7 +131,10 @@ func take_tile(tile: Node) -> void:
 
 	refresh_tile_states()
 
-	if not has_valid_move():
+	# Build the full "reachable" pool: free board tiles + slot bar + this new tile
+	var check_ids: Array = current_slot_ids.duplicate()
+	check_ids.append(tile.tile_id)
+	if not has_valid_move(check_ids):
 		_auto_shuffle()
 
 # Step 2: free the node (called by SlotBar after match animation)
@@ -153,15 +158,15 @@ func shuffle_tiles() -> void:
 # ---------------------------------------------------------------------------
 # Valid-move check (scans all free tiles for any matching pair)
 # ---------------------------------------------------------------------------
-func has_valid_move() -> bool:
-	var free_tiles: Array = []
+func has_valid_move(slot_ids: Array = []) -> bool:
+	var all_ids: Array = slot_ids.duplicate()
 	for key: Vector3i in grid:
 		if grid[key].is_free:
-			free_tiles.append(grid[key])
+			all_ids.append(grid[key].tile_id)
 
-	for i in range(free_tiles.size()):
-		for j in range(i + 1, free_tiles.size()):
-			if free_tiles[i].tile_id == free_tiles[j].tile_id:
+	for i in range(all_ids.size()):
+		for j in range(i + 1, all_ids.size()):
+			if all_ids[i] == all_ids[j]:
 				return true
 	return false
 

@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Royal Mahjong"
 config/description="A calming Match-2 Mahjong Solitaire game — save the Emperor!"
 config/version="0.1.0"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://scenes/TitleScreen.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
@@ -25,6 +25,8 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/game_manager.gd"
 SaveManager="*res://scripts/save_manager.gd"
+SoundManager="*res://scripts/sound_manager.gd"
+AdManager="*res://scripts/ad_manager.gd"
 
 [display]
 
@@ -33,6 +35,10 @@ window/size/viewport_height=960
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
+
+[editor]
+
+version_control/autoload_on_startup=true
 
 [rendering]
 

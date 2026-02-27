@@ -47,10 +47,10 @@ Refer to these for details (load only when needed):
 - `agent_docs/testing.md`: Verification strategy and commands
 
 ## Current State (Update This!)
-**Last Updated:** 2026-02-23
-**Working On:** Phase 2 — Core Features
-**Recently Completed:** Phase 1 — Foundation (all tasks done, game is playable)
-**Blocked By:** None
+**Last Updated:** 2026-02-26
+**Working On:** Phase 3 — Polish & Launch Prep
+**Recently Completed:** Phase 2 — Core Features (all tasks done)
+**Blocked By:** Midjourney art assets needed for Final UI Polish
 
 ## Roadmap
 ### Phase 1: Foundation (Week 1) ✅ COMPLETE
@@ -59,11 +59,19 @@ Refer to these for details (load only when needed):
 - [x] Build 4-slot bar UI and check logic.
 - [x] Parse JSON level data.
 
-### Phase 2: Core Features (Week 2)
-- [ ] Implement Simple JSON State Machine for meta-game.
-- [x] Boss health functionality (Wait for tile hits).
-- [ ] Admob/AppLovin integration (Rewarded Ads for Shuffles/Undos).
-- [ ] Final UI Polish with Midjourney assets.
+### Phase 2: Core Features (Week 2) ✅ COMPLETE
+- [x] Implement Simple JSON State Machine for meta-game (narrative.json, emperor dialogue).
+- [x] Boss health functionality (HP bar, damage on match, death triggers level complete).
+- [x] AdManager architecture for Rewarded Ads (stub mode; wire SDK when ready).
+- [x] Functional Tutorial (3-step, tap-to-advance, shown once on level 1).
+- [ ] Final UI Polish with Midjourney assets. ⬅ BLOCKED — needs art
+
+### Phase 3: Polish & Launch Prep
+- [ ] Integrate Midjourney art assets (tile sprites, emperor portrait, backgrounds).
+- [ ] Sound & music polish (SoundManager stub exists — wire real audio files).
+- [ ] Export to Android/iOS and test on device.
+- [ ] AdMob/AppLovin SDK integration (replace STUB_MODE in ad_manager.gd).
+- [ ] App store listing assets (icon, screenshots, description).
 
 ## What NOT To Do
 - Do NOT delete files without explicit confirmation
